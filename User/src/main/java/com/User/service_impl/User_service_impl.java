@@ -1,5 +1,6 @@
 package com.User.service_impl;
 
+import com.User.DTO.UserDTO;
 import com.User.entity.User;
 import com.User.repository.User_Repository;
 import com.User.service.User_service;
@@ -49,8 +50,37 @@ public class User_service_impl implements User_service {
             return user_repository.save(Old);
         }
         else{
-            return null;
+            return  user_repository.save(user);
         }
     }
 
+    @Override
+    public User updatePartialPart(Integer id, UserDTO userDTO) {
+        System.out.println("=======================================");
+        System.out.println(userDTO.getFirstName());
+        System.out.println("=======================================");
+        Optional<User> optionalUser = user_repository.findById(id);
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+
+        User user = optionalUser.get();
+        if (userDTO.getFirstName() != null) {
+            user.setFirstName(userDTO.getFirstName());
+        }
+        if (userDTO.getLastName() != null) {
+            user.setLastName(userDTO.getLastName());
+        }
+        if (userDTO.getEmail() != null) {
+            user.setEmail(userDTO.getEmail());
+        }
+        if (userDTO.getMobileNumber() != null) {
+            user.setMobileNumber(userDTO.getMobileNumber());
+        }
+        System.out.println(user);
+        user_repository.save(user);
+        return user;
+    }
 }
+
+

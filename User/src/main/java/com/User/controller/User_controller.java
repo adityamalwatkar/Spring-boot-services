@@ -1,5 +1,6 @@
 package com.User.controller;
 
+import com.User.DTO.UserDTO;
 import com.User.entity.User;
 import com.User.service_impl.User_service_impl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,14 @@ public class User_controller {
     @PutMapping(value = "/User/UpdateUser/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> UpdateUser(@PathVariable Integer id, @RequestBody User user){
         User resp = user_service.updateUser(id, user);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/User/UpdatePatchUser/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> UpdatePartialPart(
+            @PathVariable Integer id,
+            @RequestBody  UserDTO userDTO){
+        User resp = user_service.updatePartialPart(id, userDTO);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
