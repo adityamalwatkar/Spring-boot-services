@@ -56,9 +56,6 @@ public class User_service_impl implements User_service {
 
     @Override
     public User updatePartialPart(Integer id, UserDTO userDTO) {
-        System.out.println("=======================================");
-        System.out.println(userDTO.getFirstName());
-        System.out.println("=======================================");
         Optional<User> optionalUser = user_repository.findById(id);
         if (optionalUser.isEmpty()) {
             return null;
